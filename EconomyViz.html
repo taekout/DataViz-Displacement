@@ -74,15 +74,12 @@ function ComputeDisplacementMap(displacement, width, height) {
 	var imgRsc = document.getElementById("histo");
 	ctx.drawImage(imgRsc, 0, 0, imgRsc.width, imgRsc.height);
 	var imgData = ctx.getImageData(0, 0, c.width, c.height);
-	console.log(imgRsc.width, imgRsc.height);
-	console.log(c.width, c.height);
-	console.log(imgData.data.length);
 	// get histogram.
 	for(var i = 0; i < height; i++) {
 		for(var j = 0; j < width; j++) {
 			var tmpIdx = ((width * i) + j) * 4;
 			displacement[i][j] = ( imgData.data[tmpIdx] + imgData.data[tmpIdx + 1] + imgData.data[tmpIdx + 2] ); // / 3 components(r,g,b) / 10.
-			displacement[i][j] = Math.exp(displacement[i][j] / 100) * 0.01; // average of r,g,b component and normalize.
+			displacement[i][j] = Math.exp(displacement[i][j] / 70) * 0.0001; // average of r,g,b component and normalize.
 			// e^(0.3x) * 0.05(==/20).
 		}
 	}
